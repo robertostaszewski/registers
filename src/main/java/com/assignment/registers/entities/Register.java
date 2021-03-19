@@ -1,5 +1,7 @@
 package com.assignment.registers.entities;
 
+import com.assignment.registers.exceptions.BalanceNotValidException;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,15 +22,7 @@ public class Register {
     public Register(Long id, String name, double balance) {
         this.id = id;
         this.name = name;
-        this.balance = balance;
-    }
-
-    public Register recharge(double amount) {
-        double newBalance = this.balance + amount;
-        if (newBalance < 0) {
-            throw new RuntimeException();
-        }
-        return new Register(id, name, newBalance);
+        this.balance = validateBalance(balance);
     }
 
     public Long getId() {
@@ -53,5 +47,19 @@ public class Register {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public Register recharge(double amount) {
+        return new Register(id, name, balance + amount);
+    }
+
+    private double validateBalance(double balance) {
+        if (balance < 0) {
+            throw new BalanceNotValidException(
+                    String.format("Register %s: Balance of a register could not be less than 0. " +
+                            "Given invalid balance: %.2f", name, balance));
+        }
+
+        return balance;
     }
 }

@@ -1,15 +1,15 @@
 package com.assignment.registers.services;
 
 import com.assignment.registers.entities.Register;
-import com.assignment.registers.services.requests.RechargeRequest;
-import com.assignment.registers.services.requests.TransferRequest;
+import com.assignment.registers.dto.RechargeRequest;
+import com.assignment.registers.dto.TransferRequest;
 
 import java.util.List;
 
 public interface RegisterService {
-    void recharge(RechargeRequest rechargeRequest);
+    void recharge(long sourceId, double amount);
 
-    void transfer(TransferRequest transferRequest);
+    void transfer(long sourceId, long destinationId, double amount);
 
-    List<Register> getBalanceForAllRegisters();
+    List<Register> getBalanceForAll();
 }

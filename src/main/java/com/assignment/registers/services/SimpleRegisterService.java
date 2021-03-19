@@ -1,8 +1,7 @@
 package com.assignment.registers.services;
 
 import com.assignment.registers.entities.Register;
-import com.assignment.registers.services.requests.RechargeRequest;
-import com.assignment.registers.services.requests.TransferRequest;
+import com.assignment.registers.exceptions.RegisterNotFoundException;
 import com.assignment.registers.repositories.RegisterRepository;
 
 import java.util.List;
@@ -15,26 +14,31 @@ public class SimpleRegisterService implements RegisterService {
     }
 
     @Override
-    public void recharge(RechargeRequest rechargeRequest) {
-        Register register = registerRepository.findById(rechargeRequest.getDestinationRegisterId()).orElseThrow();
-        Register updatedRegister = register.recharge(rechargeRequest.getAmount());
+    public void recharge(long destinationId, double amount) {
+        Register register = findRegisterById(destinationId);
+        Register updatedRegister = register.recharge(amount);
         registerRepository.save(updatedRegister);
     }
 
     @Override
-    public void transfer(TransferRequest transferRequest) {
-        Register source = registerRepository.findById(transferRequest.getSourceRegisterId()).orElseThrow();
-        Register destination = registerRepository.findById(transferRequest.getDestinationRegisterId()).orElseThrow();
+    public void transfer(long sourceId, long destinationId, double amount) {
+        Register source = findRegisterById(sourceId);
+        Register destination = findRegisterById(destinationId);
 
-        Register updatedSource = source.recharge(-transferRequest.getAmount());
-        Register updatedDestination = destination.recharge(transferRequest.getAmount());
+        Register updatedSource = source.recharge(-amount);
+        Register updatedDestination = destination.recharge(amount);
 
         registerRepository.save(updatedSource);
         registerRepository.save(updatedDestination);
     }
 
     @Override
-    public List<Register> getBalanceForAllRegisters() {
+    public List<Register> getBalanceForAll() {
         return registerRepository.findAll();
+    }
+
+    private Register findRegisterById(long id) {
+        return registerRepository.findById(id).orElseThrow(() ->
+                new RegisterNotFoundException(String.format("Register with given id %o does not exists", id)));
     }
 }

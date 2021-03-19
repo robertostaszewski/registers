@@ -9,28 +9,32 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.SpringVersion;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaRepositories
 @SpringBootApplication
 public class RegistersApplication implements CommandLineRunner {
 
-	@Autowired
-	private RegisterRepository registerRepository;
-
-	@Bean
-	public RegisterService getRegisterService(RegisterRepository registerRepository) {
-		return new SimpleRegisterService(registerRepository);
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(RegistersApplication.class, args);
 	}
 
+	@Autowired
+	private RegisterRepository registerRepository;
+
 	@Override
 	public void run(String... args) {
-		registerRepository.save(new Register(null, "drinks", 0));
-		registerRepository.save(new Register(null, "car", 1000));
-		registerRepository.save(new Register(null, "food", 0));
+		if (registerRepository.findAll().isEmpty()) {
+			registerRepository.save(new Register(null, "Wallet", 1000));
+			registerRepository.save(new Register(null, "Savings", 5000));
+			registerRepository.save(new Register(null, "Insurance policy", 0));
+			registerRepository.save(new Register(null, "Food expenses", 0));
+		}
+	}
+
+	@Bean
+	public RegisterService getRegisterService(RegisterRepository registerRepository) {
+		return new SimpleRegisterService(registerRepository);
 	}
 }
