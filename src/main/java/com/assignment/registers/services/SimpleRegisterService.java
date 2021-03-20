@@ -7,6 +7,10 @@ import com.assignment.registers.repositories.RegisterRepository;
 
 import java.util.List;
 
+/**
+ * Implementation of {@link RegisterService}. Use {@link RegisterRepository} to get registers,
+ * invoke operations on them and saves the results.
+ */
 public class SimpleRegisterService implements RegisterService {
     private final RegisterRepository registerRepository;
 
@@ -15,8 +19,8 @@ public class SimpleRegisterService implements RegisterService {
     }
 
     @Override
-    public void recharge(long destinationId, double amount) {
-        Register register = findRegisterById(destinationId);
+    public void recharge(long registerId, double amount) {
+        Register register = findRegisterById(registerId);
         Register updatedRegister = register.recharge(amount);
         registerRepository.save(updatedRegister);
     }
@@ -46,6 +50,6 @@ public class SimpleRegisterService implements RegisterService {
 
     private Register findRegisterById(long id) {
         return registerRepository.findById(id).orElseThrow(() ->
-                new RegisterNotFoundException(String.format("Register with given id %o does not exists", id)));
+                new RegisterNotFoundException(String.format("Register with given id %o does not exist", id)));
     }
 }

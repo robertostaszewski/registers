@@ -8,6 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
 
+/**
+ * Entity class persisted directly to the database.
+ * For simplicity of the solution this class is used also as a domain class containing business methods
+ * and as dto presented to end user.
+ */
 @Entity
 public class Register {
 
@@ -17,9 +22,20 @@ public class Register {
     private String name;
     private double balance;
 
+    /**
+     * No args constructor needed for persistence purpose.
+     */
     public Register() {
     }
 
+    /**
+     * Constructor with balance validation.
+     *
+     * @param id of register
+     * @param name of register
+     * @param balance of register
+     * @throws BalanceNotValidException if given balance is less than 0.
+     */
     public Register(Long id, String name, double balance) {
         this.id = id;
         this.name = name;
@@ -50,6 +66,13 @@ public class Register {
         this.balance = balance;
     }
 
+    /**
+     * Calculate new balance by adding specified amount.
+     *
+     * @param amount difference about which change balance.
+     * @return new instance of the register with recharged balance.
+     * @see #Register(Long, String, double) for possible exceptions.
+     */
     public Register recharge(double amount) {
         return new Register(id, name, balance + amount);
     }

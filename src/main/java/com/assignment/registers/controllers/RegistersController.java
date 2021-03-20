@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Rest controller which maps user requests to concrete invocations of implementation of {@link RegisterService}.
+ */
 @RestController
 @RequestMapping("/rest/registers")
 public class RegistersController {
@@ -23,7 +26,7 @@ public class RegistersController {
 
     @PostMapping("/operation/recharge")
     public void recharge(@RequestBody RechargeRequest rechargeRequest) {
-        registerService.recharge(rechargeRequest.getDestinationId(), rechargeRequest.getAmount());
+        registerService.recharge(rechargeRequest.getRegisterId(), rechargeRequest.getAmount());
     }
 
     @PostMapping("/operation/transfer")

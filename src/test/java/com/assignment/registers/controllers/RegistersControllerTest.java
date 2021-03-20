@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 class RegistersControllerTest {
-    private static final String RECHARGE_REQUEST = "{ \"destinationId\": 1, \"amount\": 100.0 }";
+    private static final String RECHARGE_REQUEST = "{ \"registerId\": 1, \"amount\": 100.0 }";
     private static final String TRANSFER_REQUEST = "{ \"sourceId\": 1, \"destinationId\": 2, \"amount\": 100.0 }";
     private static final String DUPLICATE_IDS_TRANSFER_REQUEST = "{ \"sourceId\": 1, \"destinationId\": 1, \"amount\": 100.0 }";
 

@@ -9,9 +9,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.SpringVersion;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+/**
+ * Main class. For simplicity used also as a configuration with beans definitions and method to initialize demo data.
+ */
 @EnableJpaRepositories
 @SpringBootApplication
 public class RegistersApplication implements CommandLineRunner {
