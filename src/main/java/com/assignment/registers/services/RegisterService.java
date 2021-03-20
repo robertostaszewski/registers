@@ -7,7 +7,7 @@ import com.assignment.registers.dto.TransferRequest;
 import java.util.List;
 
 public interface RegisterService {
-    void recharge(long sourceId, double amount);
+    void recharge(long destinationId, double amount);
 
     void transfer(long sourceId, long destinationId, double amount);
 

@@ -1,8 +1,11 @@
 package com.assignment.registers.dto;
 
 public class RechargeRequest {
-    private final long destinationId;
-    private final double amount;
+    private long destinationId;
+    private double amount;
+
+    public RechargeRequest() {
+    }
 
     public RechargeRequest(long destinationId, double amount) {
         this.destinationId = destinationId;

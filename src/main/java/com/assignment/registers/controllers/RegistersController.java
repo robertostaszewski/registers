@@ -5,6 +5,7 @@ import com.assignment.registers.dto.RegisterSummary;
 import com.assignment.registers.dto.TransferRequest;
 import com.assignment.registers.exceptions.BalanceNotValidException;
 import com.assignment.registers.exceptions.RegisterNotFoundException;
+import com.assignment.registers.exceptions.TransferNotAllowedException;
 import com.assignment.registers.services.RegisterService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,12 @@ public class RegistersController {
         this.registerService = registerService;
     }
 
-    @PostMapping("/payment/recharge")
+    @PostMapping("/operation/recharge")
     public void recharge(@RequestBody RechargeRequest rechargeRequest) {
         registerService.recharge(rechargeRequest.getDestinationId(), rechargeRequest.getAmount());
     }
 
-    @PostMapping("/payment/transfer")
+    @PostMapping("/operation/transfer")
     public void transfer(@RequestBody TransferRequest transferRequest) {
         registerService.transfer(transferRequest.getSourceId(),
                 transferRequest.getDestinationId(),
@@ -45,5 +46,10 @@ public class RegistersController {
     @ExceptionHandler
     public ResponseEntity<String> handle(RegisterNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<String> handle(TransferNotAllowedException exception) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
     }
 }

@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Register {
@@ -61,5 +62,18 @@ public class Register {
         }
 
         return balance;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Register register = (Register) o;
+        return Double.compare(register.balance, balance) == 0 && Objects.equals(id, register.id) && Objects.equals(name, register.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, balance);
     }
 }

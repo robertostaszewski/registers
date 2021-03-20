@@ -1,9 +1,12 @@
 package com.assignment.registers.dto;
 
 public class TransferRequest {
-    private final long sourceId;
-    private final long destinationId;
-    private final double amount;
+    private long sourceId;
+    private long destinationId;
+    private double amount;
+
+    public TransferRequest() {
+    }
 
     public TransferRequest(long sourceId, long destinationId, double amount) {
         this.sourceId = sourceId;

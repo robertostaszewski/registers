@@ -2,6 +2,7 @@ package com.assignment.registers.services;
 
 import com.assignment.registers.entities.Register;
 import com.assignment.registers.exceptions.RegisterNotFoundException;
+import com.assignment.registers.exceptions.TransferNotAllowedException;
 import com.assignment.registers.repositories.RegisterRepository;
 
 import java.util.List;
@@ -22,6 +23,12 @@ public class SimpleRegisterService implements RegisterService {
 
     @Override
     public void transfer(long sourceId, long destinationId, double amount) {
+        if (sourceId == destinationId) {
+            throw new TransferNotAllowedException(
+                    String.format("Source id and destinations id are the same. Source id %o, destination id %o",
+                            sourceId, destinationId));
+        }
+
         Register source = findRegisterById(sourceId);
         Register destination = findRegisterById(destinationId);
 
