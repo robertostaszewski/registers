@@ -1,7 +1,7 @@
 package com.assignment.registers.dto;
 
 /**
- * Class representing request required from user to transfer operation.
+ * Class representing request required from user for transfer operation.
  */
 public class TransferRequest {
     private long sourceId;

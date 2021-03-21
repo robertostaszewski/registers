@@ -69,7 +69,7 @@ public class Register {
     /**
      * Calculate new balance by adding specified amount.
      *
-     * @param amount difference about which change balance.
+     * @param amount to add to balance.
      * @return new instance of the register with recharged balance.
      * @see #Register(Long, String, double) for possible exceptions.
      */

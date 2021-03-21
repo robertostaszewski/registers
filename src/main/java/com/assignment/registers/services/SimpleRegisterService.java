@@ -8,8 +8,8 @@ import com.assignment.registers.repositories.RegisterRepository;
 import java.util.List;
 
 /**
- * Implementation of {@link RegisterService}. Use {@link RegisterRepository} to get registers,
- * invoke operations on them and saves the results.
+ * Implementation of {@link RegisterService}. Using {@link RegisterRepository} to retrieve registers,
+ * invoke operations on them and save back the results.
  */
 public class SimpleRegisterService implements RegisterService {
     private final RegisterRepository registerRepository;
